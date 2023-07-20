@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: example-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/imran21/argo-test.git
+    path:  argo-test
+    targetRevision: HEAD  # You can specify a specific commit, tag, or branch here
+  destination:
+    server: https://3C3C18E35754D7171400F16841FB2.gr7.us-west-2.eks.amazonaws.com # Kubernetes API server address
+    namespace: default  # Target namespace where the application will be deployed
+  syncPolicy:
+    automated:
+      selfHeal: true  # Automatically revert to the desired state if drift is detected
+      prune: true 
